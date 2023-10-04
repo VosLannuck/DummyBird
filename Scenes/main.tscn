@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bus4mm3k75aaj"]
+[gd_scene load_steps=7 format=3 uid="uid://bus4mm3k75aaj"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_15lbs"]
 [ext_resource type="Texture2D" uid="uid://7e7rq0gg4bgq" path="res://assets/background/rocks_2.png" id="2_8jmom"]
 [ext_resource type="PackedScene" uid="uid://c2q1bauje3bc5" path="res://Scenes/plane_cb.tscn" id="2_gjje3"]
 [ext_resource type="PackedScene" uid="uid://bokiblbuskvjm" path="res://Scenes/pipes.tscn" id="4_mcyrn"]
+[ext_resource type="PackedScene" uid="uid://bnfk6gasbltb6" path="res://Scenes/game_over.tscn" id="5_cle7s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tfomp"]
 size = Vector2(479, 22)
@@ -17,8 +18,8 @@ pipes_scene = ExtResource("4_mcyrn")
 position = Vector2(12, -46)
 texture = ExtResource("2_8jmom")
 
-[node name="PlaneCB" parent="Sprite2D" instance=ExtResource("2_gjje3")]
-position = Vector2(124, 3)
+[node name="PlaneCB" parent="." instance=ExtResource("2_gjje3")]
+position = Vector2(136, -43)
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(-79, 472)
@@ -39,5 +40,10 @@ gizmo_extents = 118.1
 [node name="SpawnPipeTimer" type="Timer" parent="."]
 wait_time = 1.5
 autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOver" parent="CanvasLayer" instance=ExtResource("5_cle7s")]
+visible = false
 
 [connection signal="timeout" from="SpawnPipeTimer" to="." method="_on_spawn_pipe_timer_timeout"]

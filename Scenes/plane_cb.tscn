@@ -56,7 +56,8 @@ _data = {
 "fly": SubResource("Animation_7ul1v")
 }
 
-[node name="PlaneCB" type="CharacterBody2D"]
+[node name="PlaneCB" type="CharacterBody2D" groups=["plane"]]
+rotation = -0.00491525
 script = ExtResource("1_j5hat")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
