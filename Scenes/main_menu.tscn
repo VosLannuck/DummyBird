@@ -1,7 +1,70 @@
-[gd_scene load_steps=3 format=3 uid="uid://dsbjdljfdlyow"]
+[gd_scene load_steps=11 format=3 uid="uid://dsbjdljfdlyow"]
 
 [ext_resource type="Texture2D" uid="uid://b3uxhidiik2ff" path="res://assets/background/sky.png" id="1_73dav"]
 [ext_resource type="Script" path="res://Scripts/MainMenu.gd" id="1_qs4gn"]
+[ext_resource type="FontFile" uid="uid://bn8xjyvqnivci" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="3_yhrwl"]
+[ext_resource type="AudioStream" uid="uid://bs3b87bkb51b5" path="res://assets/audio/bgm_menu.mp3" id="4_qd7ui"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0hj48"]
+font = ExtResource("3_yhrwl")
+font_size = 72
+font_color = Color(0.784314, 0.219608, 0.219608, 1)
+outline_size = 2
+outline_color = Color(0.968627, 0.447059, 0.384314, 1)
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 0.741176)
+shadow_offset = Vector2(3, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cdq50"]
+line_spacing = 4.0
+font = ExtResource("3_yhrwl")
+font_size = 48
+outline_size = 6
+outline_color = Color(0.968627, 0.447059, 0.384314, 1)
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 0.294118)
+shadow_offset = Vector2(3, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_imlnx"]
+font = ExtResource("3_yhrwl")
+font_size = 24
+font_color = Color(0.784314, 0.219608, 0.219608, 1)
+outline_size = 2
+outline_color = Color(0.968627, 0.447059, 0.384314, 1)
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 0.741176)
+shadow_offset = Vector2(3, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5b6fq"]
+font = ExtResource("3_yhrwl")
+font_size = 24
+font_color = Color(0.784314, 0.219608, 0.219608, 1)
+outline_size = 2
+outline_color = Color(0.968627, 0.447059, 0.384314, 1)
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 0.741176)
+shadow_offset = Vector2(3, 1)
+
+[sub_resource type="Animation" id="Animation_u8j8u"]
+resource_name = "flash_pressToPlay"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/PressToPlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.694118), Color(1, 1, 1, 0.235294), Color(1, 1, 1, 0.756863)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y1e67"]
+_data = {
+"flash_pressToPlay": SubResource("Animation_u8j8u")
+}
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -21,3 +84,61 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_73dav")
 expand_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="GameTitle" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "JUST TAP IT BRO"
+label_settings = SubResource("LabelSettings_0hj48")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="PressToPlay" type="Label" parent="MarginContainer"]
+modulate = Color(1, 1, 1, 0.36942)
+layout_mode = 2
+text = "Press Space 
+To PLAY"
+label_settings = SubResource("LabelSettings_cdq50")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 22
+
+[node name="HighscoreLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "HighScore"
+label_settings = SubResource("LabelSettings_imlnx")
+vertical_alignment = 1
+
+[node name="HighScore" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "000"
+label_settings = SubResource("LabelSettings_5b6fq")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_qd7ui")
+autoplay = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "flash_pressToPlay"
+libraries = {
+"": SubResource("AnimationLibrary_y1e67")
+}
